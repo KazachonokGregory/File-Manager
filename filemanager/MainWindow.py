@@ -17,7 +17,7 @@ class MainWindow(tk.Tk):
         self.create_buttons()
 
     def create_listbox(self):
-        self.files_listbox = FileListBox(self.main_frame, selectmode=tk.MULTIPLE)
+        self.files_listbox = FileListBox(self.main_frame, selectmode=tk.EXTENDED)
         self.files_listbox.pack()
 
     def create_buttons(self):
@@ -30,3 +30,8 @@ class MainWindow(tk.Tk):
         self.rename_button = tk.Button(self.main_frame, text="Rename", command=self.files_listbox.rename)
         self.rename_button.pack()
         
+        self.copy_button = tk.Button(self.main_frame, text="Copy", command=self.files_listbox.copy)
+        self.copy_button.pack()
+
+        self.paste_button = tk.Button(self.main_frame, text="Paste", command=self.files_listbox.paste)
+        self.paste_button.pack()
