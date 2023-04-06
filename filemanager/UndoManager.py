@@ -2,7 +2,7 @@
 taken from https://derdon.github.io/blog/implementing-an-undo-redo-manager-in-python.html
 """
 
-class CommandManager(object):
+class UndoManager(object):
     def __init__(self):
         self.undo_commands = []
         self.redo_commands = []
