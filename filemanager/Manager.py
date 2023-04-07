@@ -4,8 +4,8 @@ import shutil
 import tempfile
 from UndoManager import UndoManager
 from natsort import os_sorted
-from Utilities import *
-from Operations import *
+import Utilities as util
+import Operations as oper
 
 class Manager:
     def __init__(self):
@@ -44,7 +44,7 @@ class Manager:
             return
         path = self.get_abs(name)
         if os.path.isdir(path):
-            self.undo_manager.do(OpenPath(self, path))
+            self.undo_manager.do(oper.OpenPath(self, path))
         else:
             subprocess.call(('xdg-open', path))
 
@@ -59,7 +59,7 @@ class Manager:
             try:
                 name = "New {something} ".format(something=generic_name) + str(num)
                 path = self.get_abs(name)
-                operation = MakeFolder(path) if isdir else MakeFile(path)
+                operation = oper.MakeFolder(path) if isdir else oper.MakeFile(path)
                 self.undo_manager.do(operation)
                 return name
             except FileExistsError:
@@ -70,17 +70,17 @@ class Manager:
             return
         path = self.get_abs(name)
         if os.path.isdir(path):
-            self.undo_manager.do(DeleteFolder(path, name))
+            self.undo_manager.do(oper.DeleteFolder(path, name))
         else:
-            self.undo_manager.do(DeleteFile(path, name))
+            self.undo_manager.do(oper.DeleteFile(path, name))
 
     def rename(self, old_name, new_name):
         old_path = self.get_abs(old_name)
         new_path = self.get_abs(new_name)
-        self.undo_manager.do(Rename(old_path, new_path))
+        self.undo_manager.do(oper.Rename(old_path, new_path))
 
     def copy(self, to_copy):
-        clean(self.copy_buffer.name)
+        util.clean(self.copy_buffer.name)
         for name in to_copy:
             if name == "..":
                 continue
@@ -93,7 +93,7 @@ class Manager:
                 shutil.copy(path, new_path)
 
     def paste(self):
-        self.undo_manager.do(Paste(self.cur_directory, self.copy_buffer))
+        self.undo_manager.do(oper.Paste(self.cur_directory, self.copy_buffer))
 
     def ascend(self):
         self.cur_directory = self.get_abs("..")

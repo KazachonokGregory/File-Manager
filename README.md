@@ -8,13 +8,3 @@
 ```bash
 python3 main.py
 ```
-## Зависимости
-Python 3.10.6
-### Необходимые модули
-tkinter,
-os,
-shutil,
-PIL,
-tempfile,
-subprocess,
-natsort

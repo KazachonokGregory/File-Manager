@@ -1,7 +1,7 @@
 import os
 import shutil
 import tempfile
-from Utilities import *
+import Utilities as util
 
 """
 these classes implement the operations on the lowest level. They are required by the UndoManager
@@ -100,11 +100,11 @@ class Paste:
         self.cur_directory = cur_directory
         self.buffer = tempfile.TemporaryDirectory()
         self.copy_buffer = copy_buffer
-        copy_contents(self.cur_directory, self.buffer.name)
+        util.copy_contents(self.cur_directory, self.buffer.name)
 
     def __call__(self):
         try:
-            copy_contents(self.copy_buffer.name, self.cur_directory)
+            util.copy_contents(self.copy_buffer.name, self.cur_directory)
         except Exception as e:
             self.undo()
             raise e
@@ -113,5 +113,5 @@ class Paste:
         self.buffer.cleanup()
 
     def undo(self):
-        clean(self.cur_directory)
-        copy_contents(self.buffer.name, self.cur_directory)
+        util.clean(self.cur_directory)
+        util.copy_contents(self.buffer.name, self.cur_directory)

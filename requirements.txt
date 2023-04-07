@@ -1,0 +1,9 @@
+Python 3.10.6
+tkinter
+os
+shutil
+PIL
+tempfile
+subprocess
+natsort
+
