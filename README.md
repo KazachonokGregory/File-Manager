@@ -8,3 +8,6 @@
 ```bash
 python3 main.py
 ```
+
+## Пример работы
+![plot](./stuff/Screenshot.png)
